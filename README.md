@@ -1,4 +1,8 @@
 # movie_node
+
+http://shumeipai.nxez.com/2014/11/23/raspberry-pi-using-vlc-show-nude-webcam-stream-h264.html
+
+
 raspivid -t 0 -w 1280 -h 720 -fps 25 -b 500000 -o - | ffmpeg -i - -vcodec copy -an -r 25 -f flv rtmp://send1.douyu.com/live/1249638rhQH4LZPT?wsSecret=8c152df367127c3010765348971b1345\&wsTime=5816ee6f
 
 
