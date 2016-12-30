@@ -2,7 +2,7 @@
 
 sudo raspivid -t 0 -w 1280 -h 720 -fps 25 -b 500000 -o - | sudo socat - udp-datagram:192.168.31.154:1234
 
-
+![pc_vlc配置](pc_vlc.png)
 
 
 
