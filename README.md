@@ -1,10 +1,20 @@
 # movie_node
 
+sudo raspivid -t 0 -w 1280 -h 720 -fps 25 -b 500000 -o - | sudo socat - udp-datagram:192.168.31.154:1234
+
+
+
+
+
+
+
+
+
 cvlc -vvv ~/1.rmvb --sout "#transcode{vcodec=h264,acodec=mpga,ab=128,channels=2,samplerate=44100}:udp{dst=255.255.255.255:1234}" --sout-all --sout-keep
 
 
 
-¬¬http://shumeipai.nxez.com/2014/11/23/raspberry-pi-using-vlc-show-nude-webcam-stream-h264.html¬¬
+http://shumeipai.nxez.com/2014/11/23/raspberry-pi-using-vlc-show-nude-webcam-stream-h264.html
 
 
 
