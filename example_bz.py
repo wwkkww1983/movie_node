@@ -26,29 +26,17 @@ import sys
 # import Raspi UPS Hat library
 import raspiupshat
 import time
+from datetime import datetime
+
 # init Raspi UPS Hat
 raspiupshat.init();
-while 1:
+
+while True:
         # Get info
+        print datetime.fromtimestamp(time.time())
         print "Voltage:%5.2fV" % raspiupshat.getv();
         print "Battery:%5i%%" % raspiupshat.getsoc();
-        time.sleep(1)
-# draw batery
-n = int(round(raspiupshat.getsoc() / 10));
-print "----------- "
-sys.stdout.write('|')
-for i in range(0,n):
-	sys.stdout.write('#')
-for i in range(0,10-n):
-	sys.stdout.write(' ')
-sys.stdout.write('|+\n')
-print "----------- "
+        
+        time.sleep(60)
+        
 
-if raspiupshat.getsoc() == 100:
-	print "Battery FULL"
-if raspiupshat.getsoc() < 20:
-	print "Battery LOW"
-while 1:
-	if raspiupshat.getsoc() < 5:
-		print "System will shutdown now,bye!"
-		os.system("sudo shutdown")
