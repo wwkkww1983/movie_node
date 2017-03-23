@@ -4,6 +4,8 @@ sudo raspivid -t 0 -w 1280 -h 720 -fps 25 -b 500000 -o - | sudo socat - udp-data
 
 python example_bz.py >> record_time.dat
 
+:demux=h264 :network-caching=1000 :sout=#duplicate{dst=file{dst=C:\\\\Users\\\\43587\\\\Desktop\\\\test.mp4},dst=display} :sout-keep
+
 ![pc_vlc配置](pc_vlc.png)
 
 
