@@ -56,7 +56,7 @@ horizon_light_min_channel=6
 horizon_light_max_channel=7
 vertical_light_min_channel=8
 vertical_light_max_channel=9
-light_gap=5
+light_gap=50
 horizon_angle=0
 vertical_angle=0
 
