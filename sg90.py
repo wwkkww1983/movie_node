@@ -62,6 +62,7 @@ vertical_angle=0
 
 while True:
 	horizon_light_min = ADC_Read(horizon_light_min_channel)
+	time.sleep(0.5)
 	horizon_light_max = ADC_Read(horizon_light_max_channel)
 	#vertical_light_min = ADC_Read(vertical_light_min_channel)
 	#vertical_light_max = ADC_Read(vertical_light_max_channel)
