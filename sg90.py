@@ -21,9 +21,9 @@ def servodriver(servo,angle):
 
 
 
-Clock = 16
-Address = 20
-DataOut = 21
+Clock = 36
+Address = 38
+DataOut = 40
 
 def ADC_Read(channel):
 	value = 0
@@ -64,6 +64,7 @@ while True:
 	horizon_light_min = ADC_Read(horizon_light_min_channel)
 	time.sleep(0.5)
 	horizon_light_max = ADC_Read(horizon_light_max_channel)
+	time.sleep(0.5)
 	#vertical_light_min = ADC_Read(vertical_light_min_channel)
 	#vertical_light_max = ADC_Read(vertical_light_max_channel)
 	print horizon_light_min, horizon_light_max#, vertical_light_min, vertical_light_max
