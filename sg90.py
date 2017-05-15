@@ -21,9 +21,9 @@ def servodriver(servo,angle):
 
 
 
-Clock = 36
-Address = 38
-DataOut = 40
+Clock = 16
+Address = 20
+DataOut = 21
 
 def ADC_Read(channel):
 	value = 0
