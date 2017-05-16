@@ -9,17 +9,16 @@ A1 = 0x02
 A2 = 0x03
 A3 = 0x04
 bus = smbus.SMBus(1)
+
+def read_channel(A):
+    bus.write_byte(address, A)
+    value = bus.read_byte(address)
+    time.sleep(0.1)
+    return value
+
 while True:
-    bus.write_byte(address, A0)
-    value0 = bus.read_byte(address)
-    time.sleep(0.1)
-    bus.write_byte(address, A1)
-    value1 = bus.read_byte(address)
-    time.sleep(0.1)
-    bus.write_byte(address, A2)
-    value2 = bus.read_byte(address)
-    time.sleep(0.1)
-    bus.write_byte(address, A3)
-    value3 = bus.read_byte(address)
-    time.sleep(0.1)
+    value0 = read_channel(A0)
+    value1 = read_channel(A1)
+    value2 = read_channel(A2)
+    value3 = read_channel(A3)
     print ("%1.3f")%(value0 * 3.3 / 255),("%1.3f")%(value1 * 3.3 / 255),("%1.3f")%(value2 * 3.3 / 255),("%1.3f")%(value3 * 3.3 / 255)
