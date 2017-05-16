@@ -48,7 +48,7 @@ vertical_light_max_channel=A3
 light_gap=3
 horizon_angle=0
 vertical_angle=0
-delay_time=0.0
+delay_time=0.1
 
 
 
