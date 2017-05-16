@@ -45,10 +45,10 @@ horizon_light_min_channel=A0
 horizon_light_max_channel=A1
 vertical_light_min_channel=A2
 vertical_light_max_channel=A3
-light_gap=5
+light_gap=10
 horizon_angle=0
 vertical_angle=0
-delay_time=0.1
+delay_time=0.01
 
 
 
