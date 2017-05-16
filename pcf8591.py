@@ -13,7 +13,6 @@ bus = smbus.SMBus(1)
 def read_channel(A):
     bus.write_byte(address, A)
     value = bus.read_byte(address)
-
     return value
 
 while True:

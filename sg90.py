@@ -2,6 +2,7 @@ import time
 import signal
 import atexit
 import RPi.GPIO as GPIO
+import smbus
 
 atexit.register(GPIO.cleanup)
 
@@ -21,56 +22,48 @@ def servodriver(servo,angle):
 
 
 
-Clock = 36
-Address = 38
-DataOut = 40
+address = 0x48
+A0 = 0x01
+A1 = 0x02
+A2 = 0x03
+A3 = 0x04
+bus = smbus.SMBus(1)
 
-def ADC_Read(channel):
-	value = 0
-	for i in range(0,4):
-		if((channel >> (3 - i)) & 0x01):
-			GPIO.output(Address,GPIO.HIGH)
-		else:
-			GPIO.output(Address,GPIO.LOW)
-		GPIO.output(Clock,GPIO.HIGH)
-		GPIO.output(Clock,GPIO.LOW)
-	for i in range(0,6):
-		GPIO.output(Clock,GPIO.HIGH)
-		GPIO.output(Clock,GPIO.LOW)
-	time.sleep(0.001)
-	for i in range(0,10):
-		GPIO.output(Clock,GPIO.HIGH)
-		value <<= 1
-		if(GPIO.input(DataOut)):
-			value |= 0x01
-		GPIO.output(Clock,GPIO.LOW)
-	return value
-	
-GPIO.setwarnings(False)
-GPIO.setup(Clock,GPIO.OUT)
-GPIO.setup(Address,GPIO.OUT)
-GPIO.setup(DataOut,GPIO.IN,GPIO.PUD_UP)
+def read_channel(A):
+    bus.write_byte(address, A)
+    value = bus.read_byte(address)
+    return value
 
 
-horizon_light_min_channel=6
-horizon_light_max_channel=7
-vertical_light_min_channel=8
-vertical_light_max_channel=9
-light_gap=50
+
+
+
+
+
+
+horizon_light_min_channel=A0
+horizon_light_max_channel=A1
+vertical_light_min_channel=A2
+vertical_light_max_channel=A3
+light_gap=0.05
 horizon_angle=0
 vertical_angle=0
 
-while True:
-	horizon_light_min = ADC_Read(horizon_light_min_channel)
-	time.sleep(0.5)
-	horizon_light_max = ADC_Read(horizon_light_max_channel)
-	time.sleep(0.5)
-	#vertical_light_min = ADC_Read(vertical_light_min_channel)
-	#vertical_light_max = ADC_Read(vertical_light_max_channel)
-	print horizon_light_min, horizon_light_max#, vertical_light_min, vertical_light_max
+
+
+
+
 
 while True:
-	horizon_light_min=ADC_Read(horizon_light_min_channel)
+	horizon_light_min = read_channel(horizon_light_min_channel)
+	horizon_light_max = read_channel(horizon_light_max_channel)
+	vertical_light_min = read_channel(vertical_light_min_channel)
+	vertical_light_max = read_channel(vertical_light_max_channel)
+	print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max
+
+'''
+while True:
+	horizon_light_min=read_channel(horizon_light_min_channel)
 	horizon_light_max=ADC_Read(horizon_light_max_channel)
 	vertical_light_min=ADC_Read(vertical_light_min_channel)
 	vertical_light_max=ADC_Read(vertical_light_max_channel)
@@ -114,7 +107,7 @@ while True:
 		print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max,horizon_angle,vertical_angle
 		vertical_light_min=ADC_Read(vertical_light_min_channel)
 		vertical_light_max=ADC_Read(vertical_light_max_channel)
-
+'''
 '''
 #for i in range(25,125,1):
 for i in range(0,181,2):
