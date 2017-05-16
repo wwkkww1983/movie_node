@@ -4,10 +4,10 @@ import smbus
 import time
 
 address = 0x48
-A0 = 0x41
-A1 = 0x42
-A2 = 0x40
-A3 = 0x43
+A0 = 0x01
+A1 = 0x02
+A2 = 0x03
+A3 = 0x04
 bus = smbus.SMBus(1)
 while True:
     bus.write_byte(address, A0)
