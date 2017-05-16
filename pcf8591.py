@@ -13,7 +13,7 @@ bus = smbus.SMBus(1)
 def read_channel(A):
     bus.write_byte(address, A)
     value = bus.read_byte(address)
-    time.sleep(0.1)
+
     return value
 
 while True:
@@ -22,3 +22,4 @@ while True:
     value2 = read_channel(A2)
     value3 = read_channel(A3)
     print ("%1.3f")%(value0 * 3.3 / 255),("%1.3f")%(value1 * 3.3 / 255),("%1.3f")%(value2 * 3.3 / 255),("%1.3f")%(value3 * 3.3 / 255)
+    time.sleep(0.1)
