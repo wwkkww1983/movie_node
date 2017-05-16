@@ -45,7 +45,7 @@ horizon_light_min_channel=A0
 horizon_light_max_channel=A1
 vertical_light_min_channel=A2
 vertical_light_max_channel=A3
-light_gap=0.05
+light_gap=5
 horizon_angle=0
 vertical_angle=0
 
@@ -53,20 +53,20 @@ vertical_angle=0
 
 
 
-
+'''
 while True:
 	horizon_light_min = read_channel(horizon_light_min_channel)
 	horizon_light_max = read_channel(horizon_light_max_channel)
 	vertical_light_min = read_channel(vertical_light_min_channel)
 	vertical_light_max = read_channel(vertical_light_max_channel)
 	print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max
-
 '''
+
 while True:
 	horizon_light_min=read_channel(horizon_light_min_channel)
-	horizon_light_max=ADC_Read(horizon_light_max_channel)
-	vertical_light_min=ADC_Read(vertical_light_min_channel)
-	vertical_light_max=ADC_Read(vertical_light_max_channel)
+	horizon_light_max=read_channel(horizon_light_max_channel)
+	vertical_light_min=read_channel(vertical_light_min_channel)
+	vertical_light_max=read_channel(vertical_light_max_channel)
 	while horizon_light_max-horizon_light_min>light_gap:
 		if horizon_angle+1>180:
 			horizon_angle=180
@@ -75,8 +75,8 @@ while True:
 		servodriver(p_horizon,horizon_angle)
 		time.sleep(0.5)
 		print horizon_light_min,horizon_light_max,vertical_light_min,vertical_light_max,horizon_angle,vertical_angle
-		horizon_light_min=ADC_Read(horizon_light_min_channel)
-		horizon_light_max=ADC_Read(horizon_light_max_channel)
+		horizon_light_min=read_channel(horizon_light_min_channel)
+		horizon_light_max=read_channel(horizon_light_max_channel)
 	while horizon_light_min-horizon_light_max>light_gap:
 		if horizon_angle-1<0:
 			horizon_angle=0
@@ -85,8 +85,8 @@ while True:
 		servodriver(p_horizon,horizon_angle)
 		time.sleep(0.5)
 		print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max,horizon_angle,vertical_angle
-		horizon_light_min=ADC_Read(horizon_light_min_channel)
-		horizon_light_max=ADC_Read(horizon_light_max_channel)
+		horizon_light_min=read_channel(horizon_light_min_channel)
+		horizon_light_max=read_channel(horizon_light_max_channel)
 	while vertical_light_max-vertical_light_min>light_gap:
 		if vertical_angle+1>180:
 			vertical_angle=180
@@ -95,8 +95,8 @@ while True:
 		servodriver(p_vertical,vertical_angle)
 		time.sleep(0.5)
 		print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max,horizon_angle,vertical_angle
-		vertical_light_min=ADC_Read(vertical_light_min_channel)
-		vertical_light_max=ADC_Read(vertical_light_max_channel)
+		vertical_light_min=read_channel(vertical_light_min_channel)
+		vertical_light_max=read_channel(vertical_light_max_channel)
 	while vertical_light_min-vertical_light_max>light_gap:
 		if vertical_angle-1<0:
 			vertical_angle=0
@@ -105,9 +105,9 @@ while True:
 		servodriver(p_vertical,vertical_angle)
 		time.sleep(0.5)
 		print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max,horizon_angle,vertical_angle
-		vertical_light_min=ADC_Read(vertical_light_min_channel)
-		vertical_light_max=ADC_Read(vertical_light_max_channel)
-'''
+		vertical_light_min=read_channel(vertical_light_min_channel)
+		vertical_light_max=read_channel(vertical_light_max_channel)
+
 '''
 #for i in range(25,125,1):
 for i in range(0,181,2):
