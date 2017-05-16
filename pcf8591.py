@@ -16,4 +16,10 @@ while True:
     bus.write_byte(address, A1)
     value1 = bus.read_byte(address)
     time.sleep(0.1)
-    print value0 * 3.3 / 255,value1 * 3.3 / 255
+    bus.write_byte(address, A2)
+    value2 = bus.read_byte(address)
+    time.sleep(0.1)
+    bus.write_byte(address, A3)
+    value3 = bus.read_byte(address)
+    time.sleep(0.1)
+    print ("%1.3f")%(value0 * 3.3 / 255),("%1.3f")%(value1 * 3.3 / 255),("%1.3f")%(value2 * 3.3 / 255),("%1.3f")%(value3 * 3.3 / 255)
