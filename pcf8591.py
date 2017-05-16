@@ -12,7 +12,8 @@ bus = smbus.SMBus(1)
 while True:
     bus.write_byte(address, A0)
     value0 = bus.read_byte(address)
+    time.sleep(0.1)
     bus.write_byte(address, A1)
     value1 = bus.read_byte(address)
-    print(value0 * 3.3 / 255,value1 * 3.3 / 255)
     time.sleep(0.1)
+    print value0 * 3.3 / 255,value1 * 3.3 / 255
