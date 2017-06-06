@@ -68,8 +68,7 @@ while True:
             horizon_angle = horizon_angle + 1
         servodriver(p_horizon, horizon_angle)
         time.sleep(delay_time)
-        print
-        horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
+        print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
         horizon_light_min = read_channel(horizon_light_min_channel)
         horizon_light_max = read_channel(horizon_light_max_channel)
     while horizon_light_min - horizon_light_max > light_gap:
@@ -79,8 +78,7 @@ while True:
             horizon_angle = horizon_angle - 1
         servodriver(p_horizon, horizon_angle)
         time.sleep(delay_time)
-        print
-        horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
+        print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
         horizon_light_min = read_channel(horizon_light_min_channel)
         horizon_light_max = read_channel(horizon_light_max_channel)
     while vertical_light_max - vertical_light_min > light_gap:
@@ -90,8 +88,7 @@ while True:
             vertical_angle = vertical_angle + 1
         servodriver(p_vertical, vertical_angle)
         time.sleep(delay_time)
-        print
-        horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
+        print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
         vertical_light_min = read_channel(vertical_light_min_channel)
         vertical_light_max = read_channel(vertical_light_max_channel)
     while vertical_light_min - vertical_light_max > light_gap:
@@ -101,8 +98,7 @@ while True:
             vertical_angle = vertical_angle - 1
         servodriver(p_vertical, vertical_angle)
         time.sleep(delay_time)
-        print
-        horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
+        print horizon_light_min, horizon_light_max, vertical_light_min, vertical_light_max, horizon_angle, vertical_angle
         vertical_light_min = read_channel(vertical_light_min_channel)
         vertical_light_max = read_channel(vertical_light_max_channel)
 
