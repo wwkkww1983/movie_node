@@ -94,7 +94,7 @@ class i2c(object):
 def main():
     i = i2c()
 
-    #import RPi.GPIO as GPIO
+    import RPi.GPIO as GPIO
 
 
     while True:
