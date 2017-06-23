@@ -99,7 +99,8 @@ def main():
             isInit=True
     while True:
         try:
-            print i.read_nature_axle_angle(),i.accel_x_h,i.accel_y_h,i.accel_z_h
+            axle_angle=i.read_nature_axle_angle()
+            print axle_angle[0],axle_angle[1],axle_angle[2]
         except IOError:
             isInit = False
             while isInit == False:
