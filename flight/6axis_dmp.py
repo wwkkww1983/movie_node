@@ -26,10 +26,10 @@ motor_left_up = GPIO.PWM(pin_left_up, 50)
 motor_right_up = GPIO.PWM(pin_right_up, 50)
 motor_left_down = GPIO.PWM(pin_left_down, 50)
 motor_right_down = GPIO.PWM(pin_right_down, 50)
-dutycycle_left_up = 0.0
-dutycycle_right_up = 0.0
-dutycycle_left_down = 0.0
-dutycycle_right_down = 0.0
+dutycycle_left_up = 50.0
+dutycycle_right_up = 50.0
+dutycycle_left_down = 50.0
+dutycycle_right_down = 50.0
 motor_left_up.start(dutycycle_left_up)
 motor_right_up.start(dutycycle_right_up)
 motor_left_down.start(dutycycle_left_down)
