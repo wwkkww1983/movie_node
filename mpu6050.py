@@ -35,15 +35,18 @@ class i2c(object):
 
     # 3轴的加速度
     def read_accel(self):
-        # x轴
-        self.accel_x_h = self.bus.read_byte_data(self.address, 0x3B)
-        self.accel_x_l = self.bus.read_byte_data(self.address, 0x3C)
-        # y轴
-        self.accel_y_h = self.bus.read_byte_data(self.address, 0x3D)
-        self.accel_y_l = self.bus.read_byte_data(self.address, 0x3E)
-        # z轴
-        self.accel_z_h = self.bus.read_byte_data(self.address, 0x3E)
-        self.accel_z_l = self.bus.read_byte_data(self.address, 0x3F)
+        try:
+            # x轴
+            self.accel_x_h = self.bus.read_byte_data(self.address, 0x3B)
+            self.accel_x_l = self.bus.read_byte_data(self.address, 0x3C)
+            # y轴
+            self.accel_y_h = self.bus.read_byte_data(self.address, 0x3D)
+            self.accel_y_l = self.bus.read_byte_data(self.address, 0x3E)
+            # z轴
+            self.accel_z_h = self.bus.read_byte_data(self.address, 0x3E)
+            self.accel_z_l = self.bus.read_byte_data(self.address, 0x3F)
+        except:
+            pass
         return self.accel_x_h, self.accel_x_l, self.accel_y_h, self.accel_y_l, self.accel_z_h, self.accel_z_l
 
     # 陀螺仪3轴角加速度，每秒多少度
@@ -95,7 +98,7 @@ def main():
     i = i2c()
     while 1:
         print i.read_nature_axle_angle()
-        sleep(0.5)
+        sleep(0.01)
 
 
 if __name__ == "__main__":
