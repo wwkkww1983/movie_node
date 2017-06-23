@@ -65,10 +65,16 @@ class i2c(object):
         # 使用try 防止分母为0
         # x轴
         self.read_accel()
-        tmp = self.accel_x_h / int(sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h)))
+        temp=int(sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h)))
+        if temp==0:
+            temp+=0.00001
+        tmp = self.accel_x_h / temp
         self.x_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
         # y轴
-        tmp = self.accel_y_h / int(sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h)))
+        try:
+            tmp = self.accel_y_h / int(sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h)))
+        except:
+            pass
         self.y_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
         # z轴
         try:
