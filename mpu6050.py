@@ -102,7 +102,7 @@ def main():
             isInit=True
     while True:
         try:
-            print i.read_nature_axle_angle()
+            print i.read_nature_axle_angle(),i.accel_x_h,i.accel_y_h,i.accel_z_h
         except IOError:
             isInit = False
             while isInit == False:
@@ -112,7 +112,8 @@ def main():
                     pass
                 else:
                     isInit = True
-        sleep(0.5)
+        else:
+            sleep(0.5)
 
 
 if __name__ == "__main__":
