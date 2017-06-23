@@ -44,11 +44,9 @@ class i2c(object):
         # z轴
         self.accel_z_h = self.bus.read_byte_data(self.address, 0x3E)
         self.accel_z_l = self.bus.read_byte_data(self.address, 0x3F)
-        return self.accel_x_h, self.accel_x_l, \
-               self.accel_y_h, self.accel_y_l, \
-               self.accel_z_h, self.accel_z_l, \
-            # 陀螺仪3轴角加速度，每秒多少度
+        return self.accel_x_h, self.accel_x_l, self.accel_y_h, self.accel_y_l, self.accel_z_h, self.accel_z_l
 
+    # 陀螺仪3轴角加速度，每秒多少度
     def read_gyro(self):
         # x轴角速度
         self.gyro_x_h = self.bus.read_byte_data(self.address, 0x43)
@@ -59,11 +57,9 @@ class i2c(object):
         # z轴角速度
         self.gyro_z_h = self.bus.read_byte_data(self.address, 0x47)
         self.gyro_z_l = self.bus.read_byte_data(self.address, 0x48)
-        return self.gyro_x_h, self.gyro_x_l, \
-               self.gyro_y_h, self.gyro_y_l, \
-               self.gyro_z_h, self.gyro_z_l, \
-            # 3轴与自然轴角度,参考他人的算法，也不是很明白
+        return self.gyro_x_h, self.gyro_x_l, self.gyro_y_h, self.gyro_y_l, self.gyro_z_h, self.gyro_z_l
 
+    # 3轴与自然轴角度,参考他人的算法，也不是很明白
     def read_nature_axle_angle(self):
         # 先开方，然后在算出弧度，最后把弧度转换为角度
         # 使用try 防止分母为0
