@@ -65,23 +65,20 @@ class i2c(object):
         # 使用try 防止分母为0
         # x轴
         self.read_accel()
-        temp=int(sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h)))
-        if temp==0:
-            temp+=0.00001
-        tmp = self.accel_x_h / temp
-        self.x_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
-        # y轴
+        self.x_nature_axle_angle=0
+        self.y_nature_axle_angle=0
+        self.z_nature_axle_angle=0
         try:
+            tmp = self.accel_x_h / int(sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h)))
+            self.x_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
+            # y轴
             tmp = self.accel_y_h / int(sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h)))
-        except:
-            pass
-        self.y_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
-        # z轴
-        try:
+            self.y_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
+            # z轴
             tmp = int(sqrt((self.accel_x_h * self.accel_x_h + self.accel_y_h * self.accel_y_h))) / self.accel_z_h
+            self.z_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
         except:
             pass
-        self.z_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
         return self.x_nature_axle_angle, self.y_nature_axle_angle, self.z_nature_axle_angle
 
     # 芯片温度
