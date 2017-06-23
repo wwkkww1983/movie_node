@@ -97,7 +97,7 @@ def main():
         i=i2c()
         try:
             print i.read_nature_axle_angle()
-        except:
+        except IOError:
             i = i2c()
         sleep(0.5)
 
