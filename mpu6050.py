@@ -68,6 +68,7 @@ class i2c(object):
         # 先开方，然后在算出弧度，最后把弧度转换为角度
         # 使用try 防止分母为0
         # x轴
+        self.read_accel()
         tmp = self.accel_x_h / int(sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h)))
         self.x_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
         # y轴
