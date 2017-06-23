@@ -105,6 +105,8 @@ while True:
         elif dutycycle_right_down < 0.0:
             dutycycle_right_down = 0.0
 
+        print(dutycycle_left_up, dutycycle_right_up, dutycycle_left_down, dutycycle_right_down)
+
         motor_left_up.ChangeDutyCycle(dutycycle_left_up)
         motor_right_up.ChangeDutyCycle(dutycycle_right_up)
         motor_left_down.ChangeDutyCycle(dutycycle_left_down)
