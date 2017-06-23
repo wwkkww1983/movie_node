@@ -33,6 +33,10 @@ class i2c(object):
         # 加速计自检、测量范围及高通滤波频率，典型值：0x01(不自检，2G，5Hz)
         self.bus.write_byte_data(self.address, 0x1C, 0x01)
 
+        self.x_nature_axle_angle = 0
+        self.y_nature_axle_angle = 0
+        self.z_nature_axle_angle = 0
+
     # 3轴的加速度
     def read_accel(self):
         # x轴
@@ -65,18 +69,15 @@ class i2c(object):
         # 使用try 防止分母为0
         # x轴
         self.read_accel()
-        self.x_nature_axle_angle=0
-        self.y_nature_axle_angle=0
-        self.z_nature_axle_angle=0
         try:
-            tmp = self.accel_x_h / int(sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h)))
-            self.x_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
+            tmp = self.accel_x_h / sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h))
+            self.x_nature_axle_angle = atan(tmp) * 1800 / 3.14
             # y轴
-            tmp = self.accel_y_h / int(sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h)))
-            self.y_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
+            tmp = self.accel_y_h / sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h))
+            self.y_nature_axle_angle = atan(tmp) * 1800 / 3.14
             # z轴
-            tmp = int(sqrt((self.accel_x_h * self.accel_x_h + self.accel_y_h * self.accel_y_h))) / self.accel_z_h
-            self.z_nature_axle_angle = int(atan(tmp) * 1800 / 3.14)
+            tmp = sqrt((self.accel_x_h * self.accel_x_h + self.accel_y_h * self.accel_y_h)) / self.accel_z_h
+            self.z_nature_axle_angle = atan(tmp) * 1800 / 3.14
         except:
             pass
         return self.x_nature_axle_angle, self.y_nature_axle_angle, self.z_nature_axle_angle
