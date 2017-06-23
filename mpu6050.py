@@ -92,13 +92,26 @@ class i2c(object):
 
 
 def main():
-
-    while 1:
-        i=i2c()
+    isInit=False
+    while isInit==False:
+        try:
+            i=i2c()
+        except IOError:
+            pass
+        else:
+            isInit=True
+    while True:
         try:
             print i.read_nature_axle_angle()
         except IOError:
-            i = i2c()
+            isInit = False
+            while isInit == False:
+                try:
+                    i = i2c()
+                except IOError:
+                    pass
+                else:
+                    isInit = True
         sleep(0.5)
 
 
