@@ -103,6 +103,8 @@ def main():
             axle_angle=i.read_nature_axle_angle()
             print axle_angle[0],axle_angle[1],axle_angle[2]
         except IOError:
+            pass
+            '''
             isInit = False
             while isInit == False:
                 try:
@@ -111,6 +113,7 @@ def main():
                     pass
                 else:
                     isInit = True
+            '''
         else:
             sleep(0.5)
 
