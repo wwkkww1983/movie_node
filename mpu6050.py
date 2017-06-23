@@ -92,33 +92,20 @@ class i2c(object):
 
 
 def main():
-    isInit=False
-    while isInit==False:
-        try:
-            i=i2c()
-        except IOError:
-            pass
-        else:
-            isInit=True
+    i = i2c()
+
+    #import RPi.GPIO as GPIO
+
+
     while True:
         try:
             axle_angle=i.read_nature_axle_angle()
             print axle_angle[0],axle_angle[1],axle_angle[2]
         except IOError:
             print "IOError"
-            pass
-            '''
-            isInit = False
-            while isInit == False:
-                try:
-                    i = i2c()
-                except IOError:
-                    pass
-                else:
-                    isInit = True
-            '''
         else:
-            sleep(0.5)
+            #sleep(0.5)
+            pass
 
 
 if __name__ == "__main__":
