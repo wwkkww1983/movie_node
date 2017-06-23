@@ -11,7 +11,7 @@ mpu.setDMPEnabled(True)
 # get expected DMP packet size for later comparison
 packetSize = mpu.dmpGetFIFOPacketSize()
 
-gap = 5
+gap = 50
 step = 0.1
 pin_left_up = 31
 pin_right_up = 33
