@@ -36,6 +36,8 @@ class i2c(object):
         self.x_nature_axle_angle = 0
         self.y_nature_axle_angle = 0
         self.z_nature_axle_angle = 0
+        self.PI=3.1415926
+        self.greatzero=0.000001
 
     # 3轴的加速度
     def read_accel(self):
@@ -70,16 +72,16 @@ class i2c(object):
         # x轴
         self.read_accel()
         try:
-            tmp = self.accel_x_h / sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h))
-            self.x_nature_axle_angle = atan(tmp) * 180 / 3.1415926
+            tmp = self.accel_x_h / sqrt(self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h+self.greatzero)
+            self.x_nature_axle_angle = atan(tmp) * 180 / self.PI
             # y轴
-            tmp = self.accel_y_h / sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h))
-            self.y_nature_axle_angle = atan(tmp) * 180 / 3.1415926
+            tmp = self.accel_y_h / sqrt(self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h+self.greatzero)
+            self.y_nature_axle_angle = atan(tmp) * 180 / self.PI
             # z轴
-            tmp = sqrt((self.accel_x_h * self.accel_x_h + self.accel_y_h * self.accel_y_h)) / self.accel_z_h
-            self.z_nature_axle_angle = atan(tmp) * 180 / 3.1415926
+            tmp = sqrt(self.accel_x_h * self.accel_x_h + self.accel_y_h * self.accel_y_h) / (self.accel_z_h+self.greatzero)
+            self.z_nature_axle_angle = atan(tmp) * 180 / self.PI
         except:
-            pass
+            print "except"
         return self.x_nature_axle_angle, self.y_nature_axle_angle, self.z_nature_axle_angle
 
     # 芯片温度
@@ -103,6 +105,7 @@ def main():
             axle_angle=i.read_nature_axle_angle()
             print axle_angle[0],axle_angle[1],axle_angle[2]
         except IOError:
+            print "IOError"
             pass
             '''
             isInit = False
