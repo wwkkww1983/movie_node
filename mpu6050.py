@@ -71,13 +71,13 @@ class i2c(object):
         self.read_accel()
         try:
             tmp = self.accel_x_h / sqrt((self.accel_y_h * self.accel_y_h + self.accel_z_h * self.accel_z_h))
-            self.x_nature_axle_angle = atan(tmp) * 1800 / 3.14
+            self.x_nature_axle_angle = atan(tmp) * 180 / 3.1415926
             # y轴
             tmp = self.accel_y_h / sqrt((self.accel_x_h * self.accel_x_h + self.accel_z_h * self.accel_z_h))
-            self.y_nature_axle_angle = atan(tmp) * 1800 / 3.14
+            self.y_nature_axle_angle = atan(tmp) * 180 / 3.1415926
             # z轴
             tmp = sqrt((self.accel_x_h * self.accel_x_h + self.accel_y_h * self.accel_y_h)) / self.accel_z_h
-            self.z_nature_axle_angle = atan(tmp) * 1800 / 3.14
+            self.z_nature_axle_angle = atan(tmp) * 180 / 3.1415926
         except:
             pass
         return self.x_nature_axle_angle, self.y_nature_axle_angle, self.z_nature_axle_angle
