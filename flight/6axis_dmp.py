@@ -11,7 +11,7 @@ mpu.setDMPEnabled(True)
 # get expected DMP packet size for later comparison
 packetSize = mpu.dmpGetFIFOPacketSize()
 
-gap = 50
+gap = 5
 step = 0.1
 pin_left_up = 31
 pin_right_up = 33
@@ -26,14 +26,17 @@ motor_left_up = GPIO.PWM(pin_left_up, 50)
 motor_right_up = GPIO.PWM(pin_right_up, 50)
 motor_left_down = GPIO.PWM(pin_left_down, 50)
 motor_right_down = GPIO.PWM(pin_right_down, 50)
-dutycycle_left_up = 50.0
-dutycycle_right_up = 50.0
-dutycycle_left_down = 50.0
-dutycycle_right_down = 50.0
+dutycycle_left_up = 100.0
+dutycycle_right_up = 100.0
+dutycycle_left_down = 100.0
+dutycycle_right_down = 100.0
 motor_left_up.start(dutycycle_left_up)
 motor_right_up.start(dutycycle_right_up)
 motor_left_down.start(dutycycle_left_down)
 motor_right_down.start(dutycycle_right_down)
+dutycycle_limit = 100.0
+target_degree_pitch = 0.0
+target_degree_roll = 0.0
 
 while True:
     # Get INT_STATUS byte
@@ -59,35 +62,38 @@ while True:
         g = mpu.dmpGetGravity(q)
         ypr = mpu.dmpGetYawPitchRoll(q, g)
 
-        print(ypr['yaw'] * 180 / math.pi),
-        print(ypr['pitch'] * 180 / math.pi),
-        print(ypr['roll'] * 180 / math.pi)
+        yaw = ypr['yaw'] * 180 / math.pi
+        pitch = ypr['pitch'] * 180 / math.pi
+        roll = ypr['roll'] * 180 / math.pi
+
+        print(yaw, pitch, roll)
 
         # track FIFO count here in case there is > 1 packet available
         # (this lets us immediately read more without waiting for an interrupt)        
         fifoCount -= packetSize
 
-        if ypr['pitch'] > gap:
+        if pitch - target_degree_pitch > gap:
             dutycycle_right_up += step
             dutycycle_right_down += step
             dutycycle_left_up -= step
             dutycycle_left_down -= step
-        elif ypr['pitch'] < -gap:
+        elif pitch - target_degree_pitch < -gap:
             dutycycle_left_up += step
             dutycycle_left_down += step
             dutycycle_right_up -= step
             dutycycle_right_down -= step
-        if ypr['roll'] > gap:
+        if roll - target_degree_roll > gap:
             dutycycle_left_up += step
             dutycycle_right_up += step
             dutycycle_left_down -= step
             dutycycle_right_down -= step
-        elif ypr['roll'] < -gap:
+        elif roll - target_degree_roll < -gap:
             dutycycle_left_down += step
             dutycycle_right_down += step
             dutycycle_left_up -= step
             dutycycle_right_up -= step
 
+        '''
         if dutycycle_left_up > 100.0:
             dutycycle_left_up = 100.0
         elif dutycycle_left_up < 0.0:
@@ -104,6 +110,20 @@ while True:
             dutycycle_right_down = 100.0
         elif dutycycle_right_down < 0.0:
             dutycycle_right_down = 0.0
+        '''
+        if dutycycle_left_up < 0.0:
+            dutycycle_left_up = 0.0
+        if dutycycle_right_up < 0.0:
+            dutycycle_right_up = 0.0
+        if dutycycle_left_down < 0.0:
+            dutycycle_left_down = 0.0
+        if dutycycle_right_down < 0.0:
+            dutycycle_right_down = 0.0
+        dutycycle_max = max(dutycycle_left_up, dutycycle_right_up, dutycycle_left_down, dutycycle_right_down)
+        dutycycle_left_up = dutycycle_left_up / dutycycle_max * dutycycle_limit
+        dutycycle_right_up = dutycycle_right_up / dutycycle_max * dutycycle_limit
+        dutycycle_left_down = dutycycle_left_down / dutycycle_max * dutycycle_limit
+        dutycycle_right_down = dutycycle_right_down / dutycycle_max * dutycycle_limit
 
         print(dutycycle_left_up, dutycycle_right_up, dutycycle_left_down, dutycycle_right_down)
 
