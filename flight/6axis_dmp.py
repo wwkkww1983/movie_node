@@ -120,10 +120,15 @@ while True:
         if dutycycle_right_down < 0.0:
             dutycycle_right_down = 0.0
         dutycycle_max = max(dutycycle_left_up, dutycycle_right_up, dutycycle_left_down, dutycycle_right_down)
-        dutycycle_left_up = dutycycle_left_up / dutycycle_max * dutycycle_limit
+        '''dutycycle_left_up = dutycycle_left_up / dutycycle_max * dutycycle_limit
         dutycycle_right_up = dutycycle_right_up / dutycycle_max * dutycycle_limit
         dutycycle_left_down = dutycycle_left_down / dutycycle_max * dutycycle_limit
         dutycycle_right_down = dutycycle_right_down / dutycycle_max * dutycycle_limit
+        '''
+        dutycycle_left_up = dutycycle_limit
+        dutycycle_right_up = dutycycle_limit
+        dutycycle_left_down = dutycycle_limit
+        dutycycle_right_down = dutycycle_limit
 
         print(dutycycle_left_up, dutycycle_right_up, dutycycle_left_down, dutycycle_right_down)
 
